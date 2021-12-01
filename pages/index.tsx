@@ -59,13 +59,22 @@ const IndexRoute: React.FC<Props> = ({ products }) => {
         templateColumns="repeat(auto-fill, minmax(230px, 1fr ))"
       >
         {products.map((product) => (
-          <Stack key={product.id} bgColor="gray.100" p={1}>
-            <Text fontWeight="semibold ">{product.title}</Text>
-            <Text>{parseCurrency(product.price)}</Text>
+          <Stack key={product.id} bgColor="gray.100" spacing={3} p={1}>
+            <Stack spacing={1}>
+              <Text fontWeight="semibold ">{product.title}</Text>
+              <Text color="green.500" fontSize="sm">
+                {parseCurrency(product.price)}
+              </Text>
+            </Stack>
             {/* mas semantico imposible...concatena el producto que acabas de clickear en el carrito. ojo al argumento del producto q me lo comi la primera vez */}
             <Button
-              colorScheme="blue"
+              colorScheme="primary"
+              // setear desde el extend
               onClick={() => setcart((cart) => cart.concat(product))}
+              size="sm"
+              variant="outline"
+              position="sticky"
+              bottom={0}
             >
               Agregar
             </Button>
@@ -94,7 +103,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       products,
     },
-    // COLORCHECKTODO
+    // CHECKTODO
     // este parametro revalida en tiempo la info cacheada (ojo q esta en seg) despues de ese tiempo dispara un req a next para que vaya al server y parsee la nueva info.
     ////// revalidate : 10 //////
   };
