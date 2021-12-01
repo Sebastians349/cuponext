@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Product } from "./types";
+import Papa from "papaparse";
+import { rejects } from "assert";
 
 export default {
   list: async (): Promise<Product[]> => {
@@ -10,9 +12,21 @@ export default {
           responseType: "blob",
         }
       )
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      });
+      .then(
+        (response) =>
+          // papaparse no funciona con promises => usamos constructor de promise
+          // devuelve una promise que es un array de productos.
+          new Promise<Product[]>((resolve, reject) => {
+            //data es lo que viene del .csv
+            Papa.parse(response.data, {
+              // le pasamos un obj con params, el header indica que el primer elemento de nuestro array arma y sortea nuestra tabla y armar el json correctamente.
+              header: true,
+              // resultado del obj parseado
+              complete: (results) => resolve(results.data as Product[]),
+              // si hay error devuelve mensaje y no trata de parsearlo.
+              error: (error) => reject(error.message),
+            });
+          })
+      );
   },
 };
