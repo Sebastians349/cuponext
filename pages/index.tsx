@@ -27,15 +27,19 @@ const IndexRoute: React.FC<Props> = ({ products }) => {
         .reduce(
           (message, product) =>
             // por cada element, le agrega esto.
-            message.concat(`* ${product.title} - $${product.price}\n `),
+            message.concat(
+              `* ${product.title} -${parseCurrency(product.price)}\n`
+            ),
           ``
         )
         // mas el total o valor final del carro
         .concat(
-          `\nTotal:  ${cart.reduce(
-            // el 0 es con lo que inicia.
-            (total, product) => total + product.price,
-            0
+          `\nTotal:${parseCurrency(
+            cart.reduce(
+              // el 0 es con lo que inicia.
+              (total, product) => total + product.price,
+              0
+            )
           )}`
         ),
     [cart]
