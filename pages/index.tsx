@@ -80,7 +80,7 @@ const IndexRoute: React.FC<Props> = ({ products }) => {
 
               <Stack spacing={1}>
                 <Text fontWeight="semibold ">{product.title}</Text>
-                <Text color="green.500" fontSize="sm">
+                <Text color="green.700" fontSize="sm">
                   {parseCurrency(product.price)}
                 </Text>
               </Stack>
