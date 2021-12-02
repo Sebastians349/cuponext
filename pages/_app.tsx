@@ -26,7 +26,11 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           p={4}
         >
           <VStack mb={6}>
-            <Image borderRadius="full" src="//placehold.it/128x128" />
+            <Image
+              borderRadius="full"
+              src="//placehold.it/128x128"
+              alt="logo del comercio"
+            />
             <Heading textTransform="uppercase">Shop</Heading>
             <Text textTransform="uppercase" fontWeight="semibold">
               El nombre de tu local
